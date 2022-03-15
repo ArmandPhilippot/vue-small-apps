@@ -1,17 +1,20 @@
 <template>
     <main id="main">
         <Instructions />
+        <WordPreview />
     </main>
 </template>
 
 <script>
 import Instructions from "./Instructions.vue";
+import WordPreview from "./WordPreview.vue";
 
 export default {
     name: 'Main',
     components: {
-        Instructions
-    }
+    Instructions,
+    WordPreview,
+}
 }
 </script>
 
