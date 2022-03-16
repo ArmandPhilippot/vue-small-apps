@@ -7,15 +7,16 @@
 
 <script>
 export default {
-    props: ['currentValue', 'isValid'],
-    emits: ['update:currentValue'],
+    props: ['inputValue'],
+    emits: ['update:inputValue'],
     computed: {
         field: {
             get() {
-                return this.currentValue
+                return this.inputValue;
             },
             set(value) {
-                this.$emit('update:currentValue', value)
+                this.$emit('update:inputValue', value);
+                this.$emit('hasNewValue', value);
             }
         },
     },

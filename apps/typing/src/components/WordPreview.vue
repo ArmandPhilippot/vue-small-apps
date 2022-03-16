@@ -3,20 +3,8 @@
 </template>
 
 <script>
-import { loremIpsum } from "../lib/dictionaries/lorem-ipsum";
-
-const getRandomWord = (array) => {
-    const randomIndex = Math.floor(array.length * Math.random());
-
-    return array[randomIndex];
-}
-
 export default {
-    data() {
-        return {
-            word: getRandomWord(loremIpsum)
-        }
-    }
+    props: ['word']
 }
 </script>
 
