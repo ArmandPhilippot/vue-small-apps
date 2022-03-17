@@ -1,25 +1,45 @@
 <template>
-<form id="form" @submit.prevent="onSubmit">
-    <label id="label" for="input">Type the current word:</label>
-    <input id="input" type="text" v-model="field">
-</form>
+    <word-preview :word="word" />
+    <form id="form" @submit.prevent="onSubmit">
+        <label id="label" for="input">Type the current word:</label>
+        <input id="input" type="text" v-model="field">
+    </form>
 </template>
 
 <script>
+import { loremIpsum } from "../lib/dictionaries/lorem-ipsum";
+import { getRandomWord } from "../utils/helpers";
+import WordPreview from "./WordPreview.vue";
+
 export default {
-    props: ['inputValue'],
-    emits: ['update:inputValue'],
+    props: {
+        inputValue: String
+    },
+    emits: ["update:inputValue"],
+    components: { WordPreview },
     computed: {
         field: {
             get() {
                 return this.inputValue;
             },
             set(value) {
-                this.$emit('update:inputValue', value);
-                this.$emit('hasNewValue', value);
+                this.$emit("update:inputValue", value);
+                this.isMatching(value);
             }
         },
     },
+    data() {
+        return {
+            word: getRandomWord(loremIpsum)
+        }
+    },
+    methods: {
+        isMatching(value) {
+            if (value === this.word) {
+                this.word = getRandomWord(loremIpsum);
+            }
+        },
+    }
 }
 </script>
 
