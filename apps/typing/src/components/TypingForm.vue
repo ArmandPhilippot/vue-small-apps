@@ -4,19 +4,21 @@
         <label id="label" for="input">Type the current word:</label>
         <input ref="typingInput" id="input" type="text" v-model="field">
     </form>
+    <Timer v-bind:limit="60" @timeout="$emit('shouldStop')" />
 </template>
 
 <script>
 import { loremIpsum } from "../lib/dictionaries/lorem-ipsum";
 import { getRandomWord } from "../utils/helpers";
 import WordPreview from "./WordPreview.vue";
+import Timer from "./Timer.vue";
 
 export default {
     props: {
-        inputValue: String
+        inputValue: String,
     },
-    emits: ["update:inputValue"],
-    components: { WordPreview },
+    emits: ["update:inputValue", 'shouldStop'],
+    components: { WordPreview, Timer },
     computed: {
         field: {
             get() {
@@ -38,7 +40,7 @@ export default {
             if (value === this.word) {
                 this.word = getRandomWord(loremIpsum);
             }
-        }
+        },
     },
     mounted() {
         this.$refs.typingInput.focus();

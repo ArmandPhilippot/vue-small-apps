@@ -1,8 +1,8 @@
 <template>
     <main id="main">
         <Instructions />
-        <StartBtn v-if="!shouldStart" @click="toggleForm" />
-        <TypingForm v-if="shouldStart" />
+        <StartBtn v-if="!toggleForm" @click="showForm" />
+        <TypingForm v-if="toggleForm" @should-stop="hideForm" />
     </main>
 </template>
 
@@ -20,12 +20,15 @@ export default {
     },
     data() {
         return {
-            shouldStart: false
+            toggleForm: false,
         }
     },
     methods: {
-        toggleForm() {
-            this.shouldStart = true;
+        hideForm() {
+            this.toggleForm = false;
+        },
+        showForm() {
+            this.toggleForm = true;
         }
     }
 }
