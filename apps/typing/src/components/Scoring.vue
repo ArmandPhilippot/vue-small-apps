@@ -42,21 +42,16 @@ export default {
 </script>
 
 <style scoped>
-.scoring {
-    margin: 1rem auto;
-}
-
 .scoring__table {
     border-collapse: collapse;
     table-layout: fixed;
 }
 
 .scoring__caption {
-    margin: 1rem 0;
-    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
     font-weight: 600;
     text-align: left;
-    text-decoration: underline solid #000;
 }
 
 .scoring__cell {

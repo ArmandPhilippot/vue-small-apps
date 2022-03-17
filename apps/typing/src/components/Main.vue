@@ -4,17 +4,27 @@
         <StartBtn v-if="!toggleForm" @click="showForm" />
         <TypingForm
             v-if="toggleForm"
+            :dictionary="dictionary"
             :timing="timing"
             @should-stop="hideForm"
             @update:valid-words="incrementValidWords"
             @update:valid-characters="incrementValidCharacters"
         />
-        <Scoring
-            v-if="!toggleForm"
-            :characters="validCharacters"
-            :words="validWords"
-            :timing="timing"
-        />
+        <div class="panel">
+            <Settings
+                v-if="!toggleForm"
+                v-bind:dictionary="dictionary"
+                v-bind:timing="timing"
+                @update:dictionary="updateDictionary"
+                @update:timing="updateTiming"
+            />
+            <Scoring
+                v-if="!toggleForm"
+                :characters="validCharacters"
+                :words="validWords"
+                :timing="timing"
+            />
+        </div>
     </main>
 </template>
 
@@ -23,6 +33,8 @@ import Instructions from "./Instructions.vue";
 import TypingForm from "./TypingForm.vue";
 import StartBtn from "./StartBtn.vue";
 import Scoring from "./Scoring.vue";
+import Settings from "./Settings.vue";
+import { DICTIONARIES } from "../constants";
 
 export default {
     name: 'Main',
@@ -30,14 +42,17 @@ export default {
         Instructions,
         TypingForm,
         StartBtn,
-        Scoring
+        Scoring,
+        Settings
     },
     data() {
         return {
-            validCharacters: 0,
-            validWords: 0,
+            availableDictionary: DICTIONARIES,
+            dictionary: "lorem",
             timing: 45,
             toggleForm: false,
+            validCharacters: 0,
+            validWords: 0,
         }
     },
     methods: {
@@ -56,6 +71,14 @@ export default {
         showForm() {
             this.toggleForm = true;
             this.resetScoring();
+        },
+        updateDictionary(value) {
+            const valueIndex = this.availableDictionary.findIndex((item) => item.id === value);
+            const isValid = valueIndex !== -1;
+            if (isValid) this.dictionary = value;
+        },
+        updateTiming(value) {
+            this.timing = value;
         }
     }
 }
@@ -66,5 +89,13 @@ export default {
     flex: 1;
     width: min(calc(100vw - 2rem), 80ch);
     margin: 2rem auto;
+}
+
+.panel {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
 }
 </style>

@@ -9,12 +9,13 @@
 
 <script>
 import { loremIpsum } from "../lib/dictionaries/lorem-ipsum";
-import { getRandomWord } from "../utils/helpers";
+import { getRandomValue } from "../utils/helpers";
 import WordPreview from "./WordPreview.vue";
 import Timer from "./Timer.vue";
 
 export default {
     props: {
+        dictionary: String,
         inputValue: String,
         timing: Number
     },
@@ -33,13 +34,17 @@ export default {
     },
     data() {
         return {
-            word: getRandomWord(loremIpsum)
+            word: getRandomValue(this.getSelectedDictionary())
         }
     },
     methods: {
+        getSelectedDictionary() {
+            // Only one dictionary is available for now.
+            return loremIpsum;
+        },
         isMatching(value) {
             if (value === this.word) {
-                this.word = getRandomWord(loremIpsum);
+                this.word = getRandomValue(this.getSelectedDictionary());
                 this.$emit("update:valid-words");
             }
         },
