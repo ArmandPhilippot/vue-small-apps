@@ -2,9 +2,9 @@
     <word-preview :word="word" />
     <form id="form" @submit.prevent="onSubmit">
         <label id="label" for="input">Type the current word:</label>
-        <input ref="typingInput" id="input" type="text" v-model="field">
+        <input ref="typingInput" id="input" type="text" v-model="field" />
     </form>
-    <Timer v-bind:limit="60" @timeout="$emit('shouldStop')" />
+    <Timer v-bind:limit="timing" @timeout="$emit('shouldStop')" />
 </template>
 
 <script>
@@ -16,8 +16,9 @@ import Timer from "./Timer.vue";
 export default {
     props: {
         inputValue: String,
+        timing: Number
     },
-    emits: ["update:inputValue", 'shouldStop'],
+    emits: ["update:inputValue", 'update:valid-characters', 'update:valid-words', 'shouldStop'],
     components: { WordPreview, Timer },
     computed: {
         field: {
@@ -39,11 +40,17 @@ export default {
         isMatching(value) {
             if (value === this.word) {
                 this.word = getRandomWord(loremIpsum);
+                this.$emit("update:valid-words");
             }
         },
     },
     mounted() {
         this.$refs.typingInput.focus();
+    },
+    watch: {
+        word() {
+            this.$emit("update:valid-characters", this.word.length);
+        }
     }
 }
 </script>
