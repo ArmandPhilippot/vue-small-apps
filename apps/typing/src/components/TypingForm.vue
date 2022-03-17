@@ -2,7 +2,7 @@
     <word-preview :word="word" />
     <form id="form" @submit.prevent="onSubmit">
         <label id="label" for="input">Type the current word:</label>
-        <input id="input" type="text" v-model="field">
+        <input ref="typingInput" id="input" type="text" v-model="field">
     </form>
 </template>
 
@@ -38,7 +38,10 @@ export default {
             if (value === this.word) {
                 this.word = getRandomWord(loremIpsum);
             }
-        },
+        }
+    },
+    mounted() {
+        this.$refs.typingInput.focus();
     }
 }
 </script>
