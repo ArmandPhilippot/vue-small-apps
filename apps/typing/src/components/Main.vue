@@ -2,8 +2,19 @@
     <main id="main">
         <Instructions />
         <StartBtn v-if="!toggleForm" @click="showForm" />
-        <TypingForm v-if="toggleForm" :timing="timing" @should-stop="hideForm" @update:valid-words="incrementValidWords" @update:valid-characters="incrementValidCharacters" />
-        <Scoring v-if="!toggleForm" :characters="validCharacters" :words="validWords" :timing="timing" />
+        <TypingForm
+            v-if="toggleForm"
+            :timing="timing"
+            @should-stop="hideForm"
+            @update:valid-words="incrementValidWords"
+            @update:valid-characters="incrementValidCharacters"
+        />
+        <Scoring
+            v-if="!toggleForm"
+            :characters="validCharacters"
+            :words="validWords"
+            :timing="timing"
+        />
     </main>
 </template>
 
@@ -16,11 +27,11 @@ import Scoring from "./Scoring.vue";
 export default {
     name: 'Main',
     components: {
-    Instructions,
-    TypingForm,
-    StartBtn,
-    Scoring
-},
+        Instructions,
+        TypingForm,
+        StartBtn,
+        Scoring
+    },
     data() {
         return {
             validCharacters: 0,

@@ -1,5 +1,7 @@
 <template>
-    <header id="header"><h1 id="branding">Typing app</h1></header>
+    <header id="header">
+        <h1 id="branding">Typing app</h1>
+    </header>
 </template>
 
 <style scoped>

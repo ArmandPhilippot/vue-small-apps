@@ -1,7 +1,7 @@
 <template>
-  <Header/>
+  <Header />
   <Main />
-  <Footer/>
+  <Footer />
 </template>
 
 <script>
@@ -15,7 +15,7 @@ export default {
     Header,
     Footer,
     Main
-}
+  }
 }
 </script>
 

@@ -1,5 +1,7 @@
 <template>
-    <footer id="footer"><p id="copyright">Typing app. MIT 2022. Armand Philippot.</p></footer>
+    <footer id="footer">
+        <p id="copyright">Typing app. MIT 2022. Armand Philippot.</p>
+    </footer>
 </template>
 
 <style scoped>

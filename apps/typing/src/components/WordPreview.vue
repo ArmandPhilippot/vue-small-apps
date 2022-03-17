@@ -1,5 +1,5 @@
 <template>
-<div class="preview">{{word}}</div>
+    <div class="preview">{{ word }}</div>
 </template>
 
 <script>

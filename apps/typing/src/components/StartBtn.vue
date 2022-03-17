@@ -20,7 +20,8 @@ export default {
     cursor: pointer;
 }
 
-.btn:hover, .btn:focus {
+.btn:hover,
+.btn:focus {
     background: hsl(0, 0%, 90%);
 }
 

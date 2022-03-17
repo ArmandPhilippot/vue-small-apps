@@ -1,5 +1,5 @@
 <template>
-<div class="timer">Remaining time: {{count}}s</div>
+    <div class="timer">Remaining time: {{ count }}s</div>
 </template>
 
 <script>
@@ -13,7 +13,7 @@ export default {
         }
     },
     mounted() {
-        setInterval(() => this.count = this.count - 1,1000)
+        setInterval(() => this.count = this.count - 1, 1000)
     },
     watch: {
         count(newCount) {
