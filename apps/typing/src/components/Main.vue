@@ -97,5 +97,7 @@ export default {
     align-items: flex-start;
     justify-content: space-between;
     gap: 2rem;
+    padding: 2rem 1rem;
+    border-top: 1px solid #dedede;
 }
 </style>

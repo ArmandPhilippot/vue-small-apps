@@ -4,16 +4,16 @@
             <caption class="scoring__caption">Results</caption>
             <tr>
                 <th></th>
-                <th class="scoring__cell">Total</th>
-                <th class="scoring__cell">Per minute</th>
+                <th class="scoring__cell scoring__cell--heading">Total</th>
+                <th class="scoring__cell scoring__cell--heading">Per minute</th>
             </tr>
             <tr>
-                <td class="scoring__cell">Characters</td>
+                <td class="scoring__cell scoring__cell--heading">Characters</td>
                 <td class="scoring__cell">{{ characters }}</td>
                 <td class="scoring__cell">{{ charactersPerMinute }}</td>
             </tr>
             <tr>
-                <td class="scoring__cell">Words</td>
+                <td class="scoring__cell scoring__cell--heading">Words</td>
                 <td class="scoring__cell">{{ words }}</td>
                 <td class="scoring__cell">{{ wordsPerMinute }}</td>
             </tr>
@@ -49,6 +49,7 @@ export default {
 
 .scoring__caption {
     margin-bottom: 1rem;
+    color: hsl(216, 57%, 22%);
     font-size: 1.4rem;
     font-weight: 600;
     text-align: left;
@@ -56,6 +57,11 @@ export default {
 
 .scoring__cell {
     padding: 0.5rem;
-    border: solid 1px #000;
+    border: solid 1px hsl(216, 57%, 22%);
+}
+
+.scoring__cell--heading {
+    color: hsl(216, 57%, 22%);
+    font-weight: 600;
 }
 </style>

@@ -71,12 +71,24 @@ export default {
 <style scoped>
 .title {
     margin-bottom: 1rem;
+    color: hsl(216, 57%, 22%);
     font-size: 1.4rem;
+}
+
+.form {
+    display: flex;
+    flex-flow: column wrap;
+    gap: 0.2rem;
 }
 .form__item {
     display: flex;
     flex-flow: row wrap;
+    align-items: center;
     gap: 0.5rem;
     margin: 1rem 0;
+}
+
+#dictionaries {
+    padding: 0.5rem;
 }
 </style>
