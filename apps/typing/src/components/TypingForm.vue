@@ -12,6 +12,7 @@ import { loremIpsum } from "../lib/dictionaries/lorem-ipsum";
 import { getRandomValue } from "../utils/helpers";
 import WordPreview from "./WordPreview.vue";
 import Timer from "./Timer.vue";
+import { english } from "../lib/dictionaries/english";
 
 export default {
     props: {
@@ -39,8 +40,13 @@ export default {
     },
     methods: {
         getSelectedDictionary() {
-            // Only one dictionary is available for now.
-            return loremIpsum;
+            switch (this.dictionary) {
+                case "english":
+                    return english;
+                case "lorem":
+                default:
+                    return loremIpsum;
+            }
         },
         isMatching(value) {
             if (value === this.word) {
