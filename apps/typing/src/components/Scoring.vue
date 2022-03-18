@@ -34,17 +34,22 @@ export default {
         words: Number,
         timing: Number
     },
+    data() {
+        return {
+            timingInSeconds: this.timing,
+        }
+    },
     computed: {
         charactersPerMinute() {
-            const timingInMinutes = this.timing / 60;
+            const timingInMinutes = this.timingInSeconds / 60;
             return Math.round(this.characters / timingInMinutes);
         },
         errorsPerMinute() {
-            const timingInMinutes = this.timing / 60;
+            const timingInMinutes = this.timingInSeconds / 60;
             return Math.round(this.errors / timingInMinutes);
         },
         wordsPerMinute() {
-            const timingInMinutes = this.timing / 60;
+            const timingInMinutes = this.timingInSeconds / 60;
             return Math.round(this.words / timingInMinutes);
         }
     },
