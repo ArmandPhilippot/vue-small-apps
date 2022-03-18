@@ -14,7 +14,9 @@
             v-if="toggleForm"
             :dictionary="dictionary"
             :timing="timing"
+            v-bind:input-value="inputValue"
             @should-stop="hideForm"
+            @update:input-value="updateInputValue"
             @update:misspelled-word="incrementErrors"
             @update:valid-words="incrementValidWords"
             @update:valid-characters="incrementValidCharacters"
@@ -51,6 +53,7 @@ export default {
             availableDictionary: DICTIONARIES,
             dictionary: "lorem",
             errors: 0,
+            inputValue: '',
             timing: 45,
             toggleForm: false,
             validCharacters: 0,
@@ -74,6 +77,7 @@ export default {
             this.toggleForm = false;
         },
         showForm() {
+            this.inputValue = '';
             this.toggleForm = true;
             this.resetScoring();
         },
@@ -81,6 +85,9 @@ export default {
             const valueIndex = this.availableDictionary.findIndex((item) => item.id === value);
             const isValid = valueIndex !== -1;
             if (isValid) this.dictionary = value;
+        },
+        updateInputValue(value) {
+            this.inputValue = value;
         },
         updateTiming(value) {
             this.timing = value;

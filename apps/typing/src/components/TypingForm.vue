@@ -2,7 +2,13 @@
     <word-preview :word="word" />
     <form id="form" @submit.prevent="onSubmit">
         <label id="label" for="input">Type the current word:</label>
-        <input ref="typingInput" id="input" type="text" v-model="field" />
+        <input
+            ref="typingInput"
+            id="input"
+            type="text"
+            v-model="field"
+            :class="['input', inputClass]"
+        />
     </form>
     <Timer v-bind:limit="timing" @timeout="$emit('shouldStop')" />
     <Button body="Stop" @click="$emit('shouldStop')" class="btn" />
@@ -35,10 +41,15 @@ export default {
                 this.isMatching(value);
             }
         },
+        inputClass() {
+            if (this.isMisspelled) return 'error';
+            return this.isValid ? 'correct' : ''
+        }
     },
     data() {
         return {
             isMisspelled: false,
+            isValid: false,
             word: getRandomValue(this.getSelectedDictionary())
         }
     },
@@ -55,16 +66,20 @@ export default {
             }
         },
         generateNewWord() {
+            this.field = '';
             this.word = getRandomValue(this.getSelectedDictionary());
             this.$emit("update:valid-words");
+            this.isValid = false;
         },
         notifyError() {
             this.isMisspelled = true;
+            this.isValid = false;
             this.$emit("update:misspelled-word");
         },
         isMatching(value) {
             if (this.word.startsWith(value)) {
                 this.isMisspelled = false;
+                this.isValid = true;
                 if (value === this.word) this.generateNewWord();
             } else {
                 if (!this.isMisspelled) {
@@ -96,10 +111,23 @@ export default {
     cursor: pointer;
 }
 
-#input {
+.input {
     min-width: min(100%, 40ch);
     padding: 0.8rem 0.5rem;
+    border: 2px solid hsl(216, 57%, 27%);
     font-size: 1rem;
+}
+
+#input:focus {
+    outline: none;
+}
+
+.correct {
+    border-color: green;
+}
+
+.error {
+    border-color: red;
 }
 
 .btn {
