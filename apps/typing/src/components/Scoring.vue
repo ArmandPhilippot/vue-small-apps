@@ -17,6 +17,11 @@
                 <td class="scoring__cell">{{ words }}</td>
                 <td class="scoring__cell">{{ wordsPerMinute }}</td>
             </tr>
+            <tr>
+                <td class="scoring__cell scoring__cell--heading">Errors</td>
+                <td class="scoring__cell">{{ errors }}</td>
+                <td class="scoring__cell">{{ errorsPerMinute }}</td>
+            </tr>
         </table>
     </div>
 </template>
@@ -25,6 +30,7 @@
 export default {
     props: {
         characters: Number,
+        errors: Number,
         words: Number,
         timing: Number
     },
@@ -32,6 +38,10 @@ export default {
         charactersPerMinute() {
             const timingInMinutes = this.timing / 60;
             return Math.round(this.characters / timingInMinutes);
+        },
+        errorsPerMinute() {
+            const timingInMinutes = this.timing / 60;
+            return Math.round(this.errors / timingInMinutes);
         },
         wordsPerMinute() {
             const timingInMinutes = this.timing / 60;

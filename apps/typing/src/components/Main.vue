@@ -7,6 +7,7 @@
             :dictionary="dictionary"
             :timing="timing"
             @should-stop="hideForm"
+            @update:misspelled-word="incrementErrors"
             @update:valid-words="incrementValidWords"
             @update:valid-characters="incrementValidCharacters"
         />
@@ -22,6 +23,7 @@
                 v-if="!toggleForm"
                 :characters="validCharacters"
                 :words="validWords"
+                :errors="errors"
                 :timing="timing"
             />
         </div>
@@ -49,6 +51,7 @@ export default {
         return {
             availableDictionary: DICTIONARIES,
             dictionary: "lorem",
+            errors: 0,
             timing: 45,
             toggleForm: false,
             validCharacters: 0,
@@ -56,6 +59,9 @@ export default {
         }
     },
     methods: {
+        incrementErrors() {
+            this.errors = this.errors + 1;
+        },
         incrementValidCharacters(value) {
             this.validCharacters = this.validCharacters + value;
         },

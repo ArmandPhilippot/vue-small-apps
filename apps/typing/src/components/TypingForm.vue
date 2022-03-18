@@ -21,7 +21,7 @@ export default {
         inputValue: String,
         timing: Number
     },
-    emits: ["update:inputValue", 'update:valid-characters', 'update:valid-words', 'shouldStop'],
+    emits: ["update:inputValue", 'update:valid-characters', 'update:valid-words', 'update:misspelled-word', 'shouldStop'],
     components: { WordPreview, Timer },
     computed: {
         field: {
@@ -36,6 +36,7 @@ export default {
     },
     data() {
         return {
+            isMisspelled: false,
             word: getRandomValue(this.getSelectedDictionary())
         }
     },
@@ -51,10 +52,22 @@ export default {
                     return loremIpsum;
             }
         },
+        generateNewWord() {
+            this.word = getRandomValue(this.getSelectedDictionary());
+            this.$emit("update:valid-words");
+        },
+        notifyError() {
+            this.isMisspelled = true;
+            this.$emit("update:misspelled-word");
+        },
         isMatching(value) {
-            if (value === this.word) {
-                this.word = getRandomValue(this.getSelectedDictionary());
-                this.$emit("update:valid-words");
+            if (this.word.startsWith(value)) {
+                this.isMisspelled = false;
+                if (value === this.word) this.generateNewWord();
+            } else {
+                if (!this.isMisspelled) {
+                    this.notifyError();
+                }
             }
         },
     },
