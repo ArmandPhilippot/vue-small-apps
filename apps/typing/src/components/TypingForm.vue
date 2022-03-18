@@ -13,6 +13,7 @@ import { getRandomValue } from "../utils/helpers";
 import WordPreview from "./WordPreview.vue";
 import Timer from "./Timer.vue";
 import { english } from "../lib/dictionaries/english";
+import { french } from "../lib/dictionaries/french";
 
 export default {
     props: {
@@ -43,6 +44,8 @@ export default {
             switch (this.dictionary) {
                 case "english":
                     return english;
+                case "french":
+                    return french;
                 case "lorem":
                 default:
                     return loremIpsum;
