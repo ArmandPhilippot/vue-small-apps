@@ -1,9 +1,12 @@
 <template>
-    <button class="btn">Start</button>
+    <button class="btn">{{ body }}</button>
 </template>
 
 <script>
 export default {
+    props: {
+        body: String
+    }
 }
 </script>
 
@@ -11,7 +14,7 @@ export default {
 .btn {
     display: block;
     min-width: 20ch;
-    margin: 3rem auto;
+    margin: auto;
     padding: 0.8rem 1rem;
     background: hsl(0, 0%, 100%);
     border: solid 3px hsl(216, 57%, 27%);

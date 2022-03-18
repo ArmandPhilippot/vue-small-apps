@@ -5,6 +5,7 @@
         <input ref="typingInput" id="input" type="text" v-model="field" />
     </form>
     <Timer v-bind:limit="timing" @timeout="$emit('shouldStop')" />
+    <Button body="Stop" @click="$emit('shouldStop')" class="btn" />
 </template>
 
 <script>
@@ -14,6 +15,7 @@ import WordPreview from "./WordPreview.vue";
 import Timer from "./Timer.vue";
 import { english } from "../lib/dictionaries/english";
 import { french } from "../lib/dictionaries/french";
+import Button from "./Button.vue";
 
 export default {
     props: {
@@ -22,7 +24,7 @@ export default {
         timing: Number
     },
     emits: ["update:inputValue", 'update:valid-characters', 'update:valid-words', 'update:misspelled-word', 'shouldStop'],
-    components: { WordPreview, Timer },
+    components: { WordPreview, Timer, Button },
     computed: {
         field: {
             get() {
@@ -82,7 +84,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #form {
     margin: 2rem 0;
     text-align: center;
@@ -98,5 +100,9 @@ export default {
     min-width: min(100%, 40ch);
     padding: 0.8rem 0.5rem;
     font-size: 1rem;
+}
+
+.btn {
+    margin: 3rem auto 2rem;
 }
 </style>

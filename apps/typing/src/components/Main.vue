@@ -1,7 +1,15 @@
 <template>
     <main id="main">
         <Instructions />
-        <StartBtn v-if="!toggleForm" @click="showForm" />
+        <div class="row" v-if="!toggleForm">
+            <Settings
+                v-bind:dictionary="dictionary"
+                v-bind:timing="timing"
+                @update:dictionary="updateDictionary"
+                @update:timing="updateTiming"
+            />
+            <Button body="Start" @click="showForm" />
+        </div>
         <TypingForm
             v-if="toggleForm"
             :dictionary="dictionary"
@@ -11,29 +19,20 @@
             @update:valid-words="incrementValidWords"
             @update:valid-characters="incrementValidCharacters"
         />
-        <div class="panel">
-            <Settings
-                v-if="!toggleForm"
-                v-bind:dictionary="dictionary"
-                v-bind:timing="timing"
-                @update:dictionary="updateDictionary"
-                @update:timing="updateTiming"
-            />
-            <Scoring
-                v-if="!toggleForm"
-                :characters="validCharacters"
-                :words="validWords"
-                :errors="errors"
-                :timing="timing"
-            />
-        </div>
+        <Scoring
+            v-if="!toggleForm"
+            :characters="validCharacters"
+            :words="validWords"
+            :errors="errors"
+            :timing="timing"
+        />
     </main>
 </template>
 
 <script>
+import Button from "./Button.vue";
 import Instructions from "./Instructions.vue";
 import TypingForm from "./TypingForm.vue";
-import StartBtn from "./StartBtn.vue";
 import Scoring from "./Scoring.vue";
 import Settings from "./Settings.vue";
 import { DICTIONARIES } from "../constants";
@@ -41,9 +40,9 @@ import { DICTIONARIES } from "../constants";
 export default {
     name: 'Main',
     components: {
+        Button,
         Instructions,
         TypingForm,
-        StartBtn,
         Scoring,
         Settings
     },
@@ -97,13 +96,15 @@ export default {
     margin: 2rem auto;
 }
 
-.panel {
+.row {
     display: flex;
     flex-flow: row wrap;
     align-items: flex-start;
     justify-content: space-between;
     gap: 2rem;
-    padding: 2rem 1rem;
+    margin: 2rem 0;
+    padding: 2rem 0;
+    border-bottom: 1px solid #dedede;
     border-top: 1px solid #dedede;
 }
 </style>
