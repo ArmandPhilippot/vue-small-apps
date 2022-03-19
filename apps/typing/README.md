@@ -1,24 +1,29 @@
-# vue-typing-app
+# Vue Typing App
 
-## Project setup
-```
-npm install
-```
+A typing app implementation with Vue.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Requirements
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- Yarn
 
-### Lints and fixes files
-```
-npm run lint
-```
+## How to
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Start the development version
+
+`yarn && yarn run serve`
+
+### Start the build version:
+
+1. `yarn && yarn run build`
+2. (`yarn global add serve`)
+3. `serve -s dist`
+
+## Preview
+
+You can see a live preview here: https://demo.armandphilippot.com/#typing
+
+![Typing app preview](./public/vue-typing-app.jpg)
+
+## License
+
+This project is open source and available under the [MIT license](../LICENSE).
