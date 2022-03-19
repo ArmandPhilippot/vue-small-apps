@@ -24,8 +24,17 @@ export default {
   methods: {
     loggedIn(value) {
       this.isAuthenticated = value;
+      localStorage.setItem('isAuthenticated', this.isAuthenticated);
+      this.isAuthenticated ? this.$router.push('/') : this.$router.push('/login');
+    },
+    redirectUser() {
       this.isAuthenticated ? this.$router.push('/') : this.$router.push('/login');
     }
+  },
+  mounted() {
+    const state = localStorage.getItem('isAuthenticated');
+    this.isAuthenticated = state === 'true';
+    this.redirectUser();
   }
 }
 </script>

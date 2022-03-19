@@ -15,12 +15,6 @@ export default {
         handleAuthentication(value) {
             this.$emit('update:authenticated', value);
         },
-        redirectToLoginForm() {
-            this.$router.push("login");
-        },
-    },
-    mounted() {
-        if (!this.isAuthenticated) this.redirectToLoginForm();
     },
 }
 </script>
