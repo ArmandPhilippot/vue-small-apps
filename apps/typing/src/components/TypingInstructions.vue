@@ -4,6 +4,12 @@
     </p>
 </template>
 
+<script>
+export default {
+    name: 'TypingInstructions'
+}
+</script>
+
 <style scoped>
 .instructions {
     text-align: center;

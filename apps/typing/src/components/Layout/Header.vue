@@ -1,18 +1,24 @@
 <template>
     <header id="header">
         <h1 id="branding">Typing app</h1>
-        <Button v-if="isAuthenticated" body="Log out" kind="small" class="logout" @click="logout" />
+        <primary-button
+            v-if="isAuthenticated"
+            body="Log out"
+            kind="small"
+            class="logout"
+            @click="logout"
+        />
     </header>
 </template>
 
 <script>
-import Button from "./Button.vue";
+import PrimaryButton from "../PrimaryButton.vue";
 export default {
-    name: "Header",
+    name: "LayoutHeader",
     props: {
         isAuthenticated: Boolean
     },
-    components: { Button },
+    components: { PrimaryButton },
     methods: {
         logout() {
             this.$router.push("logout");

@@ -10,18 +10,18 @@
             :class="['input', inputClass]"
         />
     </form>
-    <Timer v-bind:limit="timing" @timeout="$emit('shouldStop', 'timeout')" />
-    <Button body="Leave" @click="$emit('shouldStop', 'abandon')" class="btn" />
+    <typing-timer v-bind:limit="timing" @timeout="$emit('shouldStop', 'timeout')" />
+    <primary-button body="Leave" @click="$emit('shouldStop', 'abandon')" class="btn" />
 </template>
 
 <script>
 import { loremIpsum } from "../lib/dictionaries/lorem-ipsum";
 import { getRandomValue } from "../utils/helpers";
 import WordPreview from "./WordPreview.vue";
-import Timer from "./Timer.vue";
+import TypingTimer from "./TypingTimer.vue";
 import { english } from "../lib/dictionaries/english";
 import { french } from "../lib/dictionaries/french";
-import Button from "./Button.vue";
+import PrimaryButton from "./PrimaryButton.vue";
 
 export default {
     props: {
@@ -30,7 +30,7 @@ export default {
         timing: Number
     },
     emits: ["update:inputValue", 'update:valid-characters', 'update:valid-words', 'update:misspelled-word', 'shouldStop'],
-    components: { WordPreview, Timer, Button },
+    components: { WordPreview, TypingTimer, PrimaryButton },
     computed: {
         field: {
             get() {

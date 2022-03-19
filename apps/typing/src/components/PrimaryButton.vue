@@ -4,6 +4,7 @@
 
 <script>
 export default {
+    name: 'PrimaryButton',
     props: {
         body: String,
         kind: String,

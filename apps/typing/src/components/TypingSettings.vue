@@ -30,6 +30,7 @@
 <script>import { DICTIONARIES } from "../constants"
 
 export default {
+    name: 'TypingSettings',
     props: {
         dictionary: String,
         timing: Number

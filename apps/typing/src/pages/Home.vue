@@ -1,15 +1,15 @@
 <template>
-    <Instructions />
+    <typing-instructions />
     <div class="row" v-if="!toggleForm">
-        <Settings
+        <typing-settings
             v-bind:dictionary="dictionary"
             v-bind:timing="timing"
             @update:dictionary="updateDictionary"
             @update:timing="updateTiming"
         />
-        <Button body="Start" @click="showForm" />
+        <primary-button body="Start" @click="showForm" />
     </div>
-    <TypingForm
+    <typing-form
         v-if="toggleForm"
         :dictionary="dictionary"
         :timing="timing"
@@ -20,25 +20,25 @@
         @update:valid-words="incrementValidWords"
         @update:valid-characters="incrementValidCharacters"
     />
-    <Scoring v-if="!toggleForm" :current-user="currentUser" />
+    <typing-scoring v-if="!toggleForm" :current-user="currentUser" />
 </template>
 
 <script>
-import Button from "../components/Button.vue";
-import Instructions from "../components/Instructions.vue";
+import PrimaryButton from "../components/PrimaryButton.vue";
+import TypingInstructions from "../components/TypingInstructions.vue";
 import TypingForm from "../components/TypingForm.vue";
-import Scoring from "../components/Scoring.vue";
-import Settings from "../components/Settings.vue";
+import TypingScoring from "../components/TypingScoring.vue";
+import TypingSettings from "../components/TypingSettings.vue";
 import { DICTIONARIES } from "../constants";
 
 export default {
-    name: 'Home',
+    name: 'HomePage',
     components: {
-        Button,
-        Instructions,
+        PrimaryButton,
+        TypingInstructions,
         TypingForm,
-        Scoring,
-        Settings
+        TypingScoring,
+        TypingSettings
     },
     props: {
         currentUser: String

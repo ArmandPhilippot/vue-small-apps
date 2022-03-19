@@ -20,16 +20,18 @@
             </tr>
         </table>
     </div>
-    <Button body="Reset" kind="small" class="reset" @click="resetScoring" />
+    <primary-button body="Reset" kind="small" class="reset" @click="resetScoring" />
 </template>
 
 <script>import { DICTIONARIES } from "../constants";
-import Button from "./Button.vue";
+import PrimaryButton from "./PrimaryButton.vue";
 
 export default {
+    name: 'TypingScoring',
     props: {
         currentUser: String,
     },
+    components: { PrimaryButton },
     data() {
         return {
             availableDictionaries: DICTIONARIES,
@@ -64,7 +66,6 @@ export default {
         const savedRecords = localStorage.getItem(this.currentUser);
         this.records = JSON.parse(savedRecords);
     },
-    components: { Button }
 };
 </script>
 

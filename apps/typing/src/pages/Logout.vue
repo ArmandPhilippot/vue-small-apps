@@ -4,7 +4,7 @@
 
 <script>
 export default {
-    name: 'Logout',
+    name: 'LogoutPage',
     mounted() {
         this.$emit('update:current-user', '');
     }

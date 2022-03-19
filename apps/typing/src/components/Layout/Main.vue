@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: 'Main',
+    name: 'LayoutMain',
     emits: ['update:current-user'],
     props: {
         currentUser: String,

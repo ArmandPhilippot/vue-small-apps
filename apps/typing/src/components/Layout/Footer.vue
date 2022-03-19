@@ -4,6 +4,12 @@
     </footer>
 </template>
 
+<script>
+export default {
+    name: 'LayoutFooter'
+}
+</script>
+
 <style scoped>
 #footer {
     padding: 1rem;

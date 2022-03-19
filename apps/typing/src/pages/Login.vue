@@ -7,7 +7,7 @@
                 type="text"
                 :class="['form__field', usernameFieldClass]"
                 v-model="usernameField"
-                @input.once="resetErrors"
+                @input="resetErrors"
             />
         </div>
         <div class="form__item">
@@ -17,10 +17,10 @@
                 type="password"
                 :class="['form__field', passwordFieldClass]"
                 v-model="passwordField"
-                @input.once="resetErrors"
+                @input="resetErrors"
             />
         </div>
-        <Button class="form__btn" body="Log in" />
+        <primary-button class="form__btn" body="Log in" />
         <div class="error" v-if="hasError">
             <span class="error__prefix">Error:</span>
             {{ errorMessage }}
@@ -29,11 +29,11 @@
 </template>
 
 <script>
-import Button from "../components/Button.vue";
+import PrimaryButton from "../components/PrimaryButton.vue";
 import { store } from "../store";
 
 export default {
-    name: "Login",
+    name: "LoginPage",
     emits: ['update:current-user'],
     data() {
         return {
@@ -44,7 +44,7 @@ export default {
             username: '',
         };
     },
-    components: { Button },
+    components: { PrimaryButton },
     computed: {
         errorMessage() {
             if (!this.username || !this.password) {
