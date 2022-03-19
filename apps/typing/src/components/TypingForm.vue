@@ -10,8 +10,8 @@
             :class="['input', inputClass]"
         />
     </form>
-    <Timer v-bind:limit="timing" @timeout="$emit('shouldStop')" />
-    <Button body="Stop" @click="$emit('shouldStop')" class="btn" />
+    <Timer v-bind:limit="timing" @timeout="$emit('shouldStop', 'timeout')" />
+    <Button body="Leave" @click="$emit('shouldStop', 'abandon')" class="btn" />
 </template>
 
 <script>

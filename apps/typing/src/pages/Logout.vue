@@ -6,7 +6,7 @@
 export default {
     name: 'Logout',
     mounted() {
-        this.$emit('update:authenticated', false);
+        this.$emit('update:current-user', '');
     }
 }
 </script>

@@ -34,7 +34,7 @@ import { store } from "../store";
 
 export default {
     name: "Login",
-    emits: ['update:authenticated'],
+    emits: ['update:current-user'],
     data() {
         return {
             isUnknownUser: false,
@@ -105,7 +105,7 @@ export default {
             e.preventDefault();
 
             if (this.isValidUser()) {
-                this.$emit('update:authenticated', true);
+                this.$emit('update:current-user', this.username);
             }
         },
         resetErrors() {

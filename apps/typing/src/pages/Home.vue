@@ -14,19 +14,13 @@
         :dictionary="dictionary"
         :timing="timing"
         v-bind:input-value="inputValue"
-        @should-stop="hideForm"
+        @should-stop="handleStop"
         @update:input-value="updateInputValue"
         @update:misspelled-word="incrementErrors"
         @update:valid-words="incrementValidWords"
         @update:valid-characters="incrementValidCharacters"
     />
-    <Scoring
-        v-if="!toggleForm"
-        :characters="validCharacters"
-        :words="validWords"
-        :errors="errors"
-        :timing="timing"
-    />
+    <Scoring v-if="!toggleForm" :current-user="currentUser" />
 </template>
 
 <script>
@@ -46,12 +40,16 @@ export default {
         Scoring,
         Settings
     },
+    props: {
+        currentUser: String
+    },
     data() {
         return {
             availableDictionary: DICTIONARIES,
             dictionary: "lorem",
             errors: 0,
             inputValue: '',
+            records: [],
             timing: 45,
             toggleForm: false,
             validCharacters: 0,
@@ -59,6 +57,12 @@ export default {
         }
     },
     methods: {
+        handleStop(reason) {
+            if (reason === 'timeout') {
+                this.setNewRecord();
+            }
+            this.hideForm();
+        },
         hideForm() {
             this.toggleForm = false;
         },
@@ -73,6 +77,10 @@ export default {
         },
         resetScoring() {
             this.validWords = 0;
+        },
+        setNewRecord() {
+            const newRecord = { date: new Date(), dictionary: this.dictionary, timing: this.timing, words: this.validWords, characters: this.validCharacters, errors: this.errors };
+            this.records.push(newRecord);
         },
         showForm() {
             this.inputValue = '';
@@ -89,6 +97,18 @@ export default {
         },
         updateTiming(value) {
             this.timing = value;
+        }
+    },
+    mounted() {
+        const savedRecords = localStorage.getItem(this.currentUser);
+        this.records = JSON.parse(savedRecords);
+    },
+    watch: {
+        records: {
+            deep: true,
+            handler(newRecords) {
+                localStorage.setItem(this.currentUser, JSON.stringify(newRecords));
+            }
         }
     }
 }

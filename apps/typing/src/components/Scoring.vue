@@ -3,60 +3,68 @@
         <table class="scoring__table">
             <caption class="scoring__caption">Results</caption>
             <tr>
-                <th></th>
-                <th class="scoring__cell scoring__cell--heading">Total</th>
-                <th class="scoring__cell scoring__cell--heading">Per minute</th>
+                <th class="scoring__cell scoring__cell--heading">Date</th>
+                <th class="scoring__cell scoring__cell--heading">Dictionary</th>
+                <th class="scoring__cell scoring__cell--heading">Timing</th>
+                <th class="scoring__cell scoring__cell--heading">Words/min</th>
+                <th class="scoring__cell scoring__cell--heading">Characters/min</th>
+                <th class="scoring__cell scoring__cell--heading">Errors/min</th>
             </tr>
-            <tr>
-                <td class="scoring__cell scoring__cell--heading">Characters</td>
-                <td class="scoring__cell">{{ characters }}</td>
-                <td class="scoring__cell">{{ charactersPerMinute }}</td>
-            </tr>
-            <tr>
-                <td class="scoring__cell scoring__cell--heading">Words</td>
-                <td class="scoring__cell">{{ words }}</td>
-                <td class="scoring__cell">{{ wordsPerMinute }}</td>
-            </tr>
-            <tr>
-                <td class="scoring__cell scoring__cell--heading">Errors</td>
-                <td class="scoring__cell">{{ errors }}</td>
-                <td class="scoring__cell">{{ errorsPerMinute }}</td>
+            <tr v-for="record in records" v-bind:key="record">
+                <td class="scoring__cell">{{ formattedDate(record.date) }}</td>
+                <td class="scoring__cell">{{ formattedDictionary(record.dictionary) }}</td>
+                <td class="scoring__cell">{{ `${record.timing}s` }}</td>
+                <td class="scoring__cell">{{ perMinute(record.words, record.timing) }}</td>
+                <td class="scoring__cell">{{ perMinute(record.characters, record.timing) }}</td>
+                <td class="scoring__cell">{{ perMinute(record.errors, record.timing) }}</td>
             </tr>
         </table>
     </div>
 </template>
 
-<script>
+<script>import { DICTIONARIES } from "../constants";
+
 export default {
     props: {
-        characters: Number,
-        errors: Number,
-        words: Number,
-        timing: Number
+        currentUser: String,
     },
     data() {
         return {
-            timingInSeconds: this.timing,
+            availableDictionaries: DICTIONARIES,
+            records: [],
         }
     },
-    computed: {
-        charactersPerMinute() {
-            const timingInMinutes = this.timingInSeconds / 60;
-            return Math.round(this.characters / timingInMinutes);
+    methods: {
+        formattedDate(date) {
+            const dateInstance = new Date(date);
+            return `${dateInstance.toLocaleDateString()} ${dateInstance.toLocaleTimeString()}`;
         },
-        errorsPerMinute() {
-            const timingInMinutes = this.timingInSeconds / 60;
-            return Math.round(this.errors / timingInMinutes);
+        formattedDictionary(id) {
+            const chosenDictionary = this.availableDictionaries.find((dictionary) => dictionary.id === id);
+            if (chosenDictionary) {
+                return chosenDictionary.name;
+            } else {
+                console.error('Dictionary not found.');
+                return '';
+            }
         },
-        wordsPerMinute() {
-            const timingInMinutes = this.timingInSeconds / 60;
-            return Math.round(this.words / timingInMinutes);
+        perMinute(data, seconds) {
+            const minutes = seconds / 60;
+            return Math.round(data / minutes);
         }
     },
+    mounted() {
+        const savedRecords = localStorage.getItem(this.currentUser);
+        this.records = JSON.parse(savedRecords);
+    }
 };
 </script>
 
 <style scoped>
+.scoring {
+    max-width: 100%;
+    overflow-x: scroll;
+}
 .scoring__table {
     border-collapse: collapse;
     table-layout: fixed;
@@ -73,6 +81,7 @@ export default {
 .scoring__cell {
     padding: 0.5rem;
     border: solid 1px hsl(216, 57%, 22%);
+    text-align: center;
 }
 
 .scoring__cell--heading {

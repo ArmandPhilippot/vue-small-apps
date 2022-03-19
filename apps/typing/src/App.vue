@@ -1,6 +1,10 @@
 <template>
   <Header :is-authenticated="isAuthenticated" />
-  <Main :is-authenticated="isAuthenticated" @update:authenticated="loggedIn" />
+  <Main
+    :is-authenticated="isAuthenticated"
+    :current-user="currentUser"
+    @update:current-user="updateCurrentUser"
+  />
   <Footer />
 </template>
 
@@ -18,22 +22,25 @@ export default {
   },
   data() {
     return {
+      currentUser: '',
       isAuthenticated: false,
     }
   },
   methods: {
-    loggedIn(value) {
-      this.isAuthenticated = value;
-      localStorage.setItem('isAuthenticated', this.isAuthenticated);
-      this.isAuthenticated ? this.$router.push('/') : this.$router.push('/login');
-    },
     redirectUser() {
       this.isAuthenticated ? this.$router.push('/') : this.$router.push('/login');
+    },
+    updateCurrentUser(value) {
+      this.currentUser = value;
+      this.isAuthenticated = this.currentUser ? true : false;
+      localStorage.setItem('currentUser', this.currentUser);
+      this.redirectUser();
     }
   },
   mounted() {
-    const state = localStorage.getItem('isAuthenticated');
-    this.isAuthenticated = state === 'true';
+    const user = localStorage.getItem('currentUser');
+    this.currentUser = user;
+    this.isAuthenticated = user ? true : false;
     this.redirectUser();
   }
 }

@@ -1,20 +1,21 @@
 <template>
     <main id="main">
-        <router-view @update:authenticated="handleAuthentication"></router-view>
+        <router-view :current-user="currentUser" @update:current-user="updateCurrentUser"></router-view>
     </main>
 </template>
 
 <script>
 export default {
     name: 'Main',
-    emits: ['update:authenticated'],
+    emits: ['update:current-user'],
     props: {
-        isAuthenticated: Boolean
+        currentUser: String,
+        isAuthenticated: Boolean,
     },
     methods: {
-        handleAuthentication(value) {
-            this.$emit('update:authenticated', value);
-        },
+        updateCurrentUser(value) {
+            this.$emit('update:current-user', value);
+        }
     },
 }
 </script>
