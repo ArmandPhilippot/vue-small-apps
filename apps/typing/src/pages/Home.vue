@@ -101,7 +101,7 @@ export default {
     },
     mounted() {
         const savedRecords = localStorage.getItem(this.currentUser);
-        this.records = JSON.parse(savedRecords);
+        this.records = savedRecords ? JSON.parse(savedRecords) : [];
     },
     watch: {
         records: {
