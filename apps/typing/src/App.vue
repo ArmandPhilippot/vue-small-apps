@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <Main />
+  <Main :is-authenticated="isAuthenticated" @update:authenticated="loggedIn" />
   <Footer />
 </template>
 
@@ -15,6 +15,17 @@ export default {
     Header,
     Footer,
     Main
+  },
+  data() {
+    return {
+      isAuthenticated: false,
+    }
+  },
+  methods: {
+    loggedIn() {
+      this.isAuthenticated = true;
+      this.$router.push('/');
+    }
   }
 }
 </script>

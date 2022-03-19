@@ -1,12 +1,24 @@
 <template>
     <main id="main">
-        <router-view></router-view>
+        <router-view @update:authenticated="$emit('update:authenticated')"></router-view>
     </main>
 </template>
 
 <script>
 export default {
     name: 'Main',
+    emits: ['update:authenticated'],
+    props: {
+        isAuthenticated: Boolean
+    },
+    methods: {
+        redirectToLoginForm() {
+            this.$router.push("login");
+        },
+    },
+    mounted() {
+        if (!this.isAuthenticated) this.redirectToLoginForm();
+    },
 }
 </script>
 

@@ -59,6 +59,9 @@ export default {
         }
     },
     methods: {
+        hideForm() {
+            this.toggleForm = false;
+        },
         incrementErrors() {
             this.errors = this.errors + 1;
         },
@@ -70,9 +73,6 @@ export default {
         },
         resetScoring() {
             this.validWords = 0;
-        },
-        hideForm() {
-            this.toggleForm = false;
         },
         showForm() {
             this.inputValue = '';
