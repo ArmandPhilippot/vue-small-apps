@@ -1,5 +1,5 @@
 <template>
-  <Header />
+  <Header :is-authenticated="isAuthenticated" />
   <Main :is-authenticated="isAuthenticated" @update:authenticated="loggedIn" />
   <Footer />
 </template>
@@ -22,9 +22,9 @@ export default {
     }
   },
   methods: {
-    loggedIn() {
-      this.isAuthenticated = true;
-      this.$router.push('/');
+    loggedIn(value) {
+      this.isAuthenticated = value;
+      this.isAuthenticated ? this.$router.push('/') : this.$router.push('/login');
     }
   }
 }

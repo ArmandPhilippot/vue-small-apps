@@ -1,6 +1,6 @@
 <template>
     <main id="main">
-        <router-view @update:authenticated="$emit('update:authenticated')"></router-view>
+        <router-view @update:authenticated="handleAuthentication"></router-view>
     </main>
 </template>
 
@@ -12,6 +12,9 @@ export default {
         isAuthenticated: Boolean
     },
     methods: {
+        handleAuthentication(value) {
+            this.$emit('update:authenticated', value);
+        },
         redirectToLoginForm() {
             this.$router.push("login");
         },

@@ -105,7 +105,7 @@ export default {
             e.preventDefault();
 
             if (this.isValidUser()) {
-                this.$emit('update:authenticated');
+                this.$emit('update:authenticated', true);
             }
         },
         resetErrors() {
