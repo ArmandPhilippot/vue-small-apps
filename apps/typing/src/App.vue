@@ -37,6 +37,9 @@ export default {
       this.redirectUser();
     }
   },
+  created() {
+    document.title = "Typing App";
+  },
   mounted() {
     const user = localStorage.getItem('currentUser');
     this.currentUser = user;
