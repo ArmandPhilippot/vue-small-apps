@@ -20,9 +20,11 @@
             </tr>
         </table>
     </div>
+    <Button body="Reset" kind="small" class="reset" @click="resetScoring" />
 </template>
 
 <script>import { DICTIONARIES } from "../constants";
+import Button from "./Button.vue";
 
 export default {
     props: {
@@ -32,7 +34,7 @@ export default {
         return {
             availableDictionaries: DICTIONARIES,
             records: [],
-        }
+        };
     },
     methods: {
         formattedDate(date) {
@@ -43,20 +45,26 @@ export default {
             const chosenDictionary = this.availableDictionaries.find((dictionary) => dictionary.id === id);
             if (chosenDictionary) {
                 return chosenDictionary.name;
-            } else {
-                console.error('Dictionary not found.');
-                return '';
+            }
+            else {
+                console.error("Dictionary not found.");
+                return "";
             }
         },
         perMinute(data, seconds) {
             const minutes = seconds / 60;
             return Math.round(data / minutes);
+        },
+        resetScoring() {
+            localStorage.removeItem(this.currentUser);
+            this.records.length = 0;
         }
     },
     mounted() {
         const savedRecords = localStorage.getItem(this.currentUser);
         this.records = JSON.parse(savedRecords);
-    }
+    },
+    components: { Button }
 };
 </script>
 
@@ -87,5 +95,9 @@ export default {
 .scoring__cell--heading {
     color: hsl(216, 57%, 22%);
     font-weight: 600;
+}
+
+.reset {
+    margin: 1.5rem auto;
 }
 </style>
